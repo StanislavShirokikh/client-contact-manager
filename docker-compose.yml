@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: client-contact-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: client_contact
+      POSTGRES_USER: client
+      POSTGRES_PASSWORD: contact
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: client-contact-manager-app
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/client_contact
+      SPRING_DATASOURCE_USERNAME: client
+      SPRING_DATASOURCE_PASSWORD: contact
+      SPRING_JPA_HIBERNATE_DDL-AUTO: validate
+    ports:
+      - "8081:8081"
+
+volumes:
+  postgres_data:

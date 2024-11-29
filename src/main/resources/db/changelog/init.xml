@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="init-client" author="StanislavShirokikh">
+        <preConditions>
+            <not>
+                <tableExists tableName="client"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE client
+            (
+            id BIGSERIAL PRIMARY KEY,
+            name VARCHAR(60) NOT NULL
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="init-contact" author="StanislavShirokikh">
+        <preConditions>
+            <and>
+                <not>
+                    <tableExists tableName="contact"/>
+                </not>
+                <tableExists tableName="client"/>
+            </and>
+        </preConditions>
+        <sql>
+            CREATE TABLE contact
+            (
+            id BIGSERIAL PRIMARY KEY,
+            client_id BIGINT NOT NULL REFERENCES client(id) ON DELETE CASCADE,
+            type VARCHAR(50) NOT NULL,
+            value VARCHAR(50) NOT NULL
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
