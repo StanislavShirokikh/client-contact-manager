@@ -23,5 +23,5 @@ docker-compose ps
 ## Доступ к API
 После успешного запуска приложение будет доступно по адресу http://localhost:8081.
 
-Документация API доступна по адресу http://localhost:8081/fulfillment-swagger.
+Документация API доступна по адресу http://localhost:8081/client-swagger.
 
