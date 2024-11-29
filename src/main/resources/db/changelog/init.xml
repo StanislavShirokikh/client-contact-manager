@@ -5,7 +5,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet id="init-client" author="StanislavShirokikh">
-        <preConditions onFail="MARK_RAN">
+        <preConditions>
             <not>
                 <tableExists tableName="client"/>
             </not>
@@ -19,7 +19,7 @@
         </sql>
     </changeSet>
     <changeSet id="init-contact" author="StanislavShirokikh">
-        <preConditions onFail="MARK_RAN">
+        <preConditions>
             <and>
                 <not>
                     <tableExists tableName="contact"/>
@@ -33,7 +33,7 @@
             id BIGSERIAL PRIMARY KEY,
             client_id BIGINT NOT NULL REFERENCES client(id) ON DELETE CASCADE,
             type VARCHAR(50) NOT NULL,
-            value VARCHAR(50) NOT NULL UNIQUE
+            value VARCHAR(50) NOT NULL
             );
         </sql>
     </changeSet>

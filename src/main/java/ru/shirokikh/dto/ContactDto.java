@@ -1,12 +1,12 @@
 package ru.shirokikh.dto;
 
 import lombok.Data;
-import ru.shirokikh.entity.Type;
+import ru.shirokikh.utils.ValidContact;
 
 @Data
+@ValidContact
 public class ContactDto {
     private Long id;
-    private ClientDto clientDto;
-    private Type type;
+    private String type;
     private String value;
 }

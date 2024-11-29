@@ -2,6 +2,10 @@ package ru.shirokikh.mapper;
 
 import ru.shirokikh.dto.ContactDto;
 import ru.shirokikh.entity.Contact;
+import ru.shirokikh.entity.ContactType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactMapper {
     public static ContactDto mapToDto(Contact contact) {
@@ -9,9 +13,8 @@ public class ContactMapper {
         if (contact != null) {
             contactDto = new ContactDto();
             contactDto.setId(contact.getId());
-            contactDto.setClientDto(ClientMapper.mapToDto(contact.getClient()));
-            contactDto.setType(contact.getType());
-            contactDto.setValue(contactDto.getValue());
+            contactDto.setType(String.valueOf(contact.getType()));
+            contactDto.setValue(contact.getValue());
         }
         return contactDto;
     }
@@ -21,10 +24,17 @@ public class ContactMapper {
         if (contactDto != null) {
             contact = new Contact();
             contact.setId(contactDto.getId());
-            contact.setClient(ClientMapper.mapToEntity(contactDto.getClientDto()));
-            contact.setType(contactDto.getType());
-            contact.setValue(contact.getValue());
+            contact.setType(ContactType.valueOf(contactDto.getType()));
+            contact.setValue(contactDto.getValue());
         }
         return contact;
+    }
+
+    public static List<ContactDto> mapToList(List<Contact> contacts) {
+        List<ContactDto> contactDtoList = new ArrayList<>();
+        if (contacts != null && !contacts.isEmpty()) {
+            contactDtoList = ListMapper.mapToList(contacts, ContactMapper::mapToDto);
+        }
+        return contactDtoList;
     }
 }

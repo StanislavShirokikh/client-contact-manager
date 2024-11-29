@@ -6,4 +6,5 @@ import ru.shirokikh.entity.Client;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
+
 }

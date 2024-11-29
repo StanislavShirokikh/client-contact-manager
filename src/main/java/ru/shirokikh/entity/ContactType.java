@@ -1,6 +1,6 @@
 package ru.shirokikh.entity;
 
-public enum Type {
+public enum ContactType {
     PHONE,
     EMAIL
 }
